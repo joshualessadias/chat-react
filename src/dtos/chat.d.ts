@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-10-05 15:02:58.
+// Generated using typescript-generator version 3.2.1263 on 2024-10-05 17:07:08.
 
 export interface MessageRequestDTO {
     content: string;
-    receiverPhoneNumber: number;
+    receiverPhoneNumber: string;
     isWhatsApp: boolean;
 }
 
@@ -15,7 +15,7 @@ export interface ClientCreditsRequestDTO {
 export interface ClientRequestDTO {
     name: string;
     email: string;
-    phoneNumber: number;
+    phoneNumber: string;
     cpf: number;
     cnpj: number;
     firmName: string;
@@ -26,7 +26,7 @@ export interface ClientResponseDTO {
     id: number;
     name: string;
     email: string;
-    phoneNumber: number;
+    phoneNumber: string;
     cpf: number;
     cnpj: number;
     firmName: string;
@@ -38,7 +38,7 @@ export interface MessageResponseDTO {
     id: number;
     createdAt: Date;
     content: string;
-    receiverPhoneNumber: number;
+    receiverPhoneNumber: string;
     isWhatsApp: boolean;
 }
 
@@ -57,13 +57,13 @@ export interface PrePaidPlanResponseDTO extends PaymentPlanResponseDTO {
 }
 
 export interface Page<T> extends Slice<T> {
-    totalPages: number;
     totalElements: number;
+    totalPages: number;
 }
 
 export interface Sort extends Streamable<Order> {
-    unsorted: boolean;
     sorted: boolean;
+    unsorted: boolean;
 }
 
 export interface Pageable {
@@ -95,8 +95,8 @@ export interface Order {
     property: string;
     ignoreCase: boolean;
     nullHandling: NullHandling;
-    descending: boolean;
     ascending: boolean;
+    descending: boolean;
 }
 
 export interface Iterable<T> {
