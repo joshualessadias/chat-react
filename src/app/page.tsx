@@ -5,6 +5,6 @@ import { redirect } from "next/navigation";
 
 export default function Page() {
   useEffect(() => {
-    redirect("/dashboard");
+    redirect("/client-selection");
   }, []);
 }

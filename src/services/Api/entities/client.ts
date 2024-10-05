@@ -7,3 +7,7 @@ export async function getClientInfo(
 ): Promise<AxiosResponse<ClientResponseDTO>> {
   return await api.get("/client/" + id);
 }
+
+export async function getClientList(): Promise<AxiosResponse<ClientResponseDTO[]>> {
+  return await api.get("/client/all");
+}

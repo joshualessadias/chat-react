@@ -3,11 +3,11 @@ import { AppBar, Box, Toolbar, Typography } from "@mui/material";
 import { ClientResponseDTO } from "@/dtos/chat";
 import { PaymentPlanEnum } from "@/enums/PaymentPlanEnum";
 
-interface HeaderProps {
+interface ClientHeaderProps {
   clientInfo: ClientResponseDTO;
 }
 
-export default function Header({ clientInfo }: HeaderProps) {
+export default function ClientHeader({ clientInfo }: ClientHeaderProps) {
   return (
     <AppBar position="static">
       <Toolbar>
