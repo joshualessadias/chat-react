@@ -6,7 +6,7 @@ interface HeaderProps {
   clientInfo: ClientResponseDTO;
 }
 
-const Header: React.FC<HeaderProps> = ({ clientInfo }) => {
+export default function Header({ clientInfo }: HeaderProps) {
   return (
     <AppBar position="static">
       <Toolbar>
@@ -21,6 +21,4 @@ const Header: React.FC<HeaderProps> = ({ clientInfo }) => {
       </Toolbar>
     </AppBar>
   );
-};
-
-export default Header;
+}
