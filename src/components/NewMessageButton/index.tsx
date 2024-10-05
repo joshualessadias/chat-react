@@ -10,7 +10,7 @@ import {
   FormControlLabel,
   TextField,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import SendIcon from '@mui/icons-material/Send';
 import InputMask from "react-input-mask";
 import { MessageRequestDTO } from "@/dtos/chat";
 
@@ -59,7 +59,7 @@ export default function NewMessageButton({
         onClick={handleClickOpen}
         sx={{ position: "fixed", bottom: 16, right: 16 }}
       >
-        <AddIcon />
+        <SendIcon />
       </Fab>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Enviar Mensagem</DialogTitle>

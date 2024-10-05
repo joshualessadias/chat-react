@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getClientList } from "@/services/Api/entities/client";
+import { createClient, getClientList } from "@/services/Api/entities/client";
 import { useAlertSnackbar } from "@/contexts/alertSnackbarContext";
-import { ClientResponseDTO } from "@/dtos/chat";
+import { ClientRequestDTO, ClientResponseDTO } from "@/dtos/chat";
 import { Box, Container, Typography } from "@mui/material";
 import ClientListHeader from "@/components/ClientListHeader";
 import ClientList from "@/components/ClientList";
+import NewClientButton from "@/components/NewClientButton";
 
 export default function Page() {
   const { showMessage } = useAlertSnackbar();
@@ -22,6 +23,19 @@ export default function Page() {
     });
   }, [showMessage]);
 
+  const handleCreateClient = (newClient: ClientRequestDTO) => {
+    createClient(newClient).then((res) => {
+      if (res.status !== 201) {
+        showMessage("Erro ao criar cliente", "error");
+        return;
+      }
+      setClientList((prevClientList) => {
+        if (!prevClientList) return prevClientList;
+        return [...prevClientList, res.data];
+      });
+    });
+  };
+
   return (
     <div>
       {clientList && (
@@ -34,6 +48,7 @@ export default function Page() {
               </Typography>
             </Box>
             <ClientList clientList={clientList} />
+            <NewClientButton onCreateClient={handleCreateClient} />
           </Container>
         </>
       )}
