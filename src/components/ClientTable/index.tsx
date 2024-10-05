@@ -1,17 +1,17 @@
 import {
-  Box,
   IconButton,
-  Modal,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import PaymentIcon from "@mui/icons-material/Payment";
 import { ClientResponseDTO } from "@/dtos/chat";
 import { useState } from "react";
+import ViewModal from "@/components/ClientTable/ViewModal";
+import PaymentPlanModal from "@/components/ClientTable/PaymentPlanModal";
 
 interface ClientTableProps {
   clientList: ClientResponseDTO[];
@@ -20,15 +20,26 @@ interface ClientTableProps {
 export default function ClientTable({ clientList }: ClientTableProps) {
   const [selectedClient, setSelectedClient] =
     useState<ClientResponseDTO | null>(null);
-  const [open, setOpen] = useState(false);
+  const [viewOpen, setViewOpen] = useState(false);
+  const [paymentPlanOpen, setPaymentPlanOpen] = useState(false);
 
-  const handleOpen = (client: ClientResponseDTO) => {
+  const handleViewOpen = (client: ClientResponseDTO) => {
     setSelectedClient(client);
-    setOpen(true);
+    setViewOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleViewClose = () => {
+    setViewOpen(false);
+    setSelectedClient(null);
+  };
+
+  const handlePaymentPlanOpen = (client: ClientResponseDTO) => {
+    setSelectedClient(client);
+    setPaymentPlanOpen(true);
+  };
+
+  const handlePaymentPlanClose = () => {
+    setPaymentPlanOpen(false);
     setSelectedClient(null);
   };
 
@@ -48,49 +59,27 @@ export default function ClientTable({ clientList }: ClientTableProps) {
               <TableCell>{client.name}</TableCell>
               <TableCell>{client.phoneNumber}</TableCell>
               <TableCell>
-                <IconButton onClick={() => handleOpen(client)}>
+                <IconButton onClick={() => handleViewOpen(client)}>
                   <VisibilityIcon />
+                </IconButton>
+                <IconButton onClick={() => handlePaymentPlanOpen(client)}>
+                  <PaymentIcon />
                 </IconButton>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <Modal open={open} onClose={handleClose}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          {selectedClient && (
-            <>
-              <Typography variant="h6" component="h2">
-                {selectedClient.name}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>
-                Telefone: {selectedClient.phoneNumber}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>
-                Email: {selectedClient.email}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>Cpf: {selectedClient.cpf}</Typography>
-              <Typography sx={{ mt: 2 }}>
-                Empresa: {selectedClient.firmName}
-              </Typography>
-              <Typography sx={{ mt: 2 }}>
-                Cnpj: {selectedClient.cnpj}
-              </Typography>
-            </>
-          )}
-        </Box>
-      </Modal>
+      <ViewModal
+        open={viewOpen}
+        onClose={handleViewClose}
+        selectedClient={selectedClient}
+      />
+      <PaymentPlanModal
+        open={paymentPlanOpen}
+        onClose={handlePaymentPlanClose}
+        selectedClient={selectedClient}
+      />
     </div>
   );
 }
