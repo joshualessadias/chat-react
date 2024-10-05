@@ -62,7 +62,7 @@ export default function NewMessageButton({
         <AddIcon />
       </Fab>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Create New Message</DialogTitle>
+        <DialogTitle>Enviar Mensagem</DialogTitle>
         <DialogContent>
           <InputMask
             mask="(**) *****-****"
@@ -75,7 +75,7 @@ export default function NewMessageButton({
                   autoFocus
                   margin="dense"
                   name="receiverPhoneNumber"
-                  label="Receiver Phone Number"
+                  label="Número do destinatário"
                   type="text"
                   fullWidth
                   variant="outlined"
@@ -86,7 +86,7 @@ export default function NewMessageButton({
           <TextField
             margin="dense"
             name="content"
-            label="Content"
+            label="Conteúdo"
             type="text"
             fullWidth
             variant="outlined"
