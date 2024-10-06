@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function ClientListHeader() {
   return (
-    <AppBar position="static">
+    <AppBar>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           BCB - Big Chat Brasil

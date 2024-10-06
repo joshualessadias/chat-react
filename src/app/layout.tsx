@@ -1,20 +1,9 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AlertSnackbarProvider } from "@/contexts/alertSnackbarContext";
 import React from "react";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { darkTheme } from "@/components/Theme";
 
 export const metadata: Metadata = {
   title: "BCB",
@@ -28,12 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <CssBaseline>
-          <AlertSnackbarProvider>{children}</AlertSnackbarProvider>
-        </CssBaseline>
+      <body>
+        <ThemeProvider theme={darkTheme}>
+          <CssBaseline>
+            <AlertSnackbarProvider>{children}</AlertSnackbarProvider>
+          </CssBaseline>
+        </ThemeProvider>
       </body>
     </html>
   );
