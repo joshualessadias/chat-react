@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Box,
   Card,
   CardContent,
   Grid2,
@@ -18,7 +19,7 @@ export default function MessageList({ messages }: MessageListProps) {
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 
-  return (
+  return messages.length > 0 ? (
     <List>
       {sortedMessages.map((message) => (
         <ListItem key={message.id}>
@@ -47,5 +48,14 @@ export default function MessageList({ messages }: MessageListProps) {
         </ListItem>
       ))}
     </List>
+  ) : (
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100%"
+    >
+      <Typography variant="h6">Nenhuma mensagem encontrada</Typography>
+    </Box>
   );
 }
