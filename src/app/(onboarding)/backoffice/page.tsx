@@ -2,11 +2,17 @@
 
 import { useEffect, useState } from "react";
 import {
+  addCredits,
+  alterLimit,
   changePaymentPlan,
   getClientList,
 } from "@/services/Api/entities/client";
 import { useAlertSnackbar } from "@/contexts/alertSnackbarContext";
-import { ClientPaymentPlanRequestDTO, ClientResponseDTO } from "@/dtos/chat";
+import {
+  ClientCreditsRequestDTO,
+  ClientPaymentPlanRequestDTO,
+  ClientResponseDTO,
+} from "@/dtos/chat";
 import { Container } from "@mui/material";
 import ClientTable from "@/components/ClientTable";
 import BackofficeHeader from "@/components/BackofficeHeader";
@@ -47,6 +53,32 @@ export default function Page() {
     }
   };
 
+  const handleAddCreditsOrChangeLimit = (
+    selectedClient: ClientResponseDTO,
+    value: number
+  ) => {
+    if (selectedClient) {
+      const request: ClientCreditsRequestDTO = { credits: value };
+      if (selectedClient.paymentPlan.type === PaymentPlanEnum.PRE_PAID) {
+        addCredits(selectedClient.id, request).then((res) => {
+          if (res.status !== 202) {
+            showMessage("Erro ao adicionar créditos", "error");
+            return;
+          }
+          setUpdateList(!updateList);
+        });
+      } else {
+        alterLimit(selectedClient.id, request).then((res) => {
+          if (res.status !== 202) {
+            showMessage("Erro ao adicionar créditos", "error");
+            return;
+          }
+          setUpdateList(!updateList);
+        });
+      }
+    }
+  };
+
   return (
     <div>
       <BackofficeHeader />
@@ -54,6 +86,7 @@ export default function Page() {
         <ClientTable
           clientList={clientList}
           handleChangePlan={handleChangePlan}
+          handleAddCreditsOrChangeLimit={handleAddCreditsOrChangeLimit}
         />
       </Container>
     </div>

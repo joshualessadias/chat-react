@@ -8,24 +8,32 @@ import {
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { ClientResponseDTO } from "@/dtos/chat";
 import { useState } from "react";
 import ViewModal from "@/components/ClientTable/ViewModal";
 import ChangePlanModal from "@/components/ClientTable/ChangePlanModal";
+import CreditModal from "@/components/ClientTable/CreditModal";
 
 interface ClientTableProps {
   clientList: ClientResponseDTO[];
   handleChangePlan: (selectedClient: ClientResponseDTO) => void;
+  handleAddCreditsOrChangeLimit: (
+    selectedClient: ClientResponseDTO,
+    value: number
+  ) => void;
 }
 
 export default function ClientTable({
   clientList,
   handleChangePlan,
+  handleAddCreditsOrChangeLimit,
 }: ClientTableProps) {
   const [selectedClient, setSelectedClient] =
     useState<ClientResponseDTO | null>(null);
   const [viewOpen, setViewOpen] = useState(false);
   const [changePlanOpen, setChangePlanOpen] = useState(false);
+  const [creditModalOpen, setCreditModalOpen] = useState(false);
 
   const handleViewOpen = (client: ClientResponseDTO) => {
     setSelectedClient(client);
@@ -44,6 +52,16 @@ export default function ClientTable({
 
   const handleChangePlanClose = () => {
     setChangePlanOpen(false);
+    setSelectedClient(null);
+  };
+
+  const handleCreditModalOpen = (client: ClientResponseDTO) => {
+    setSelectedClient(client);
+    setCreditModalOpen(true);
+  };
+
+  const handleCreditModalClose = () => {
+    setCreditModalOpen(false);
     setSelectedClient(null);
   };
 
@@ -69,6 +87,9 @@ export default function ClientTable({
                 <IconButton onClick={() => handleChangePlanOpen(client)}>
                   <SwapHorizIcon />
                 </IconButton>
+                <IconButton onClick={() => handleCreditModalOpen(client)}>
+                  <AddCircleIcon />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}
@@ -86,6 +107,15 @@ export default function ClientTable({
         onChangePlan={(value) => {
           handleChangePlan(value);
           handleChangePlanClose();
+        }}
+      />
+      <CreditModal
+        open={creditModalOpen}
+        onClose={handleCreditModalClose}
+        selectedClient={selectedClient}
+        onConfirm={(value) => {
+          handleAddCreditsOrChangeLimit(selectedClient!, value);
+          handleCreditModalClose();
         }}
       />
     </div>

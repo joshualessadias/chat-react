@@ -1,6 +1,7 @@
 import { api } from "@/services/Api/api";
 import { AxiosResponse } from "axios";
 import {
+  ClientCreditsRequestDTO,
   ClientPaymentPlanRequestDTO,
   ClientRequestDTO,
   ClientResponseDTO,
@@ -29,4 +30,18 @@ export async function changePaymentPlan(
   request: ClientPaymentPlanRequestDTO
 ): Promise<AxiosResponse<ClientResponseDTO>> {
   return await api.put("/client/" + id + "/alter-payment-plan", request);
+}
+
+export async function addCredits(
+  id: number,
+  request: ClientCreditsRequestDTO
+): Promise<AxiosResponse<ClientResponseDTO>> {
+  return await api.put("/client/" + id + "/add-credits", request);
+}
+
+export async function alterLimit(
+  id: number,
+  request: ClientCreditsRequestDTO
+): Promise<AxiosResponse<ClientResponseDTO>> {
+  return await api.put("/client/" + id + "/alter-limit", request);
 }
