@@ -50,7 +50,7 @@ export default function ClientTable({ clientList }: ClientTableProps) {
           <TableRow>
             <TableCell>Nome</TableCell>
             <TableCell>Telefone</TableCell>
-            <TableCell>Ações</TableCell>
+            <TableCell align="right">Ações</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -58,7 +58,7 @@ export default function ClientTable({ clientList }: ClientTableProps) {
             <TableRow key={client.id}>
               <TableCell>{client.name}</TableCell>
               <TableCell>{client.phoneNumber}</TableCell>
-              <TableCell>
+              <TableCell align="right">
                 <IconButton onClick={() => handleViewOpen(client)}>
                   <VisibilityIcon />
                 </IconButton>

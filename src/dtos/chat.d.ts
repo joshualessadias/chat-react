@@ -30,7 +30,7 @@ export interface ClientResponseDTO {
     cpf: number;
     cnpj: number;
     firmName: string;
-    paymentPlan: PaymentPlanResponseDTO;
+    paymentPlan: PrePaidPlanResponseDTO | PostPaidPlanResponseDTO;
     messages: MessageResponseDTO[];
 }
 

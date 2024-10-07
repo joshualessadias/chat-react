@@ -1,5 +1,9 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { ClientResponseDTO } from "@/dtos/chat";
+import {
+  ClientResponseDTO,
+  PostPaidPlanResponseDTO,
+  PrePaidPlanResponseDTO,
+} from "@/dtos/chat";
 import { PaymentPlanEnum } from "@/enums/PaymentPlanEnum";
 
 interface PaymentPlanModalProps {
@@ -29,7 +33,7 @@ export default function PaymentPlanModal({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 400,
+          // width: 600,
           bgcolor: "background.paper",
           boxShadow: 24,
           p: 4,
@@ -46,24 +50,52 @@ export default function PaymentPlanModal({
                 ? "Pré-pago"
                 : "Pós-pago"}
             </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleAlterPaymentPlan}
-              sx={{ mt: 2 }}
+            {selectedClient.paymentPlan.type === PaymentPlanEnum.PRE_PAID ? (
+              <Typography sx={{ mt: 2 }}>
+                {`Créditos restantes: ${
+                  (selectedClient.paymentPlan as PrePaidPlanResponseDTO).credits
+                }
+                `}
+              </Typography>
+            ) : (
+              <>
+                <Typography sx={{ mt: 2 }}>
+                  {`Limite de crédito: ${
+                    (selectedClient.paymentPlan as PostPaidPlanResponseDTO)
+                      .creditLimit
+                  }
+                `}
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                  {`Créditos utilizados: ${
+                    (selectedClient.paymentPlan as PostPaidPlanResponseDTO)
+                      .creditSpent
+                  }
+                `}
+                </Typography>
+              </>
+            )}
+            <Box
+              sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
             >
-              Alter Payment Plan
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={handleAddCreditsOrAlterLimit}
-              sx={{ mt: 2 }}
-            >
-              {selectedClient.paymentPlan.type === PaymentPlanEnum.PRE_PAID
-                ? "Add Credits"
-                : "Alter Credit Limit"}
-            </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleAlterPaymentPlan}
+              >
+                Alterar plano de pagamento
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleAddCreditsOrAlterLimit}
+                sx={{ ml: 2 }}
+              >
+                {selectedClient.paymentPlan.type === PaymentPlanEnum.PRE_PAID
+                  ? "Adicionar créditos"
+                  : "Alterar limite"}
+              </Button>
+            </Box>
           </>
         )}
       </Box>
