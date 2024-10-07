@@ -1,5 +1,10 @@
-import { ClientResponseDTO } from "@/dtos/chat";
+import {
+  ClientResponseDTO,
+  PostPaidPlanResponseDTO,
+  PrePaidPlanResponseDTO,
+} from "@/dtos/chat";
 import { Box, Modal, Typography } from "@mui/material";
+import { PaymentPlanEnum } from "@/enums/PaymentPlanEnum";
 
 interface ViewModalProps {
   open: boolean;
@@ -20,7 +25,6 @@ export default function ViewModal({
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: 400,
           bgcolor: "background.paper",
           boxShadow: 24,
           p: 4,
@@ -28,7 +32,7 @@ export default function ViewModal({
       >
         {selectedClient && (
           <>
-            <Typography variant="h6" component="h2">
+            <Typography variant="h4" component="h2">
               {selectedClient.name}
             </Typography>
             <Typography sx={{ mt: 2 }}>
@@ -42,6 +46,37 @@ export default function ViewModal({
               Empresa: {selectedClient.firmName}
             </Typography>
             <Typography sx={{ mt: 2 }}>Cnpj: {selectedClient.cnpj}</Typography>
+            <Typography variant="h5" component="h2" sx={{ mt: 4 }}>
+              Plano de Pagamento:{" "}
+              {selectedClient.paymentPlan.type === PaymentPlanEnum.PRE_PAID
+                ? "Pré-pago"
+                : "Pós-pago"}
+            </Typography>
+            {selectedClient.paymentPlan.type === PaymentPlanEnum.PRE_PAID ? (
+              <Typography sx={{ mt: 2 }}>
+                {`Créditos restantes: ${
+                  (selectedClient.paymentPlan as PrePaidPlanResponseDTO).credits
+                }
+                `}
+              </Typography>
+            ) : (
+              <>
+                <Typography sx={{ mt: 2 }}>
+                  {`Limite de crédito: ${
+                    (selectedClient.paymentPlan as PostPaidPlanResponseDTO)
+                      .creditLimit
+                  }
+                `}
+                </Typography>
+                <Typography sx={{ mt: 2 }}>
+                  {`Créditos utilizados: ${
+                    (selectedClient.paymentPlan as PostPaidPlanResponseDTO)
+                      .creditSpent
+                  }
+                `}
+                </Typography>
+              </>
+            )}
           </>
         )}
       </Box>
