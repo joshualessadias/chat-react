@@ -20,6 +20,7 @@ export default function ClientList({ clientList }: ClientListProps) {
   return (
     <List>
       {clientList.map((client) => (
+        // eslint-disable-next-line
         <Link href={`/dashboard/${client.id}`}>
           <ListItem key={client.id}>
             <Card variant="outlined" sx={{ width: "100%", cursor: "pointer" }}>

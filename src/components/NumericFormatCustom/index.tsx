@@ -1,5 +1,6 @@
 import { NumberFormatValues, NumericFormat } from "react-number-format";
 
+// eslint-disable-next-line
 export default function NumericFormatCustom(props: any) {
   const { inputRef, onChange, ...other } = props;
 

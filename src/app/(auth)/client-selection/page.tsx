@@ -33,6 +33,7 @@ export default function Page() {
         if (!prevClientList) return prevClientList;
         return [...prevClientList, res.data];
       });
+      showMessage("Cliente criado", "success");
     });
   };
 

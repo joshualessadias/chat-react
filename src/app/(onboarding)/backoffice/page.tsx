@@ -49,6 +49,7 @@ export default function Page() {
           return;
         }
         setUpdateList(!updateList);
+        showMessage("Plano de pagamento alterado", "success");
       });
     }
   };
@@ -66,14 +67,16 @@ export default function Page() {
             return;
           }
           setUpdateList(!updateList);
+          showMessage("Créditos adicionados", "success");
         });
       } else {
         alterLimit(selectedClient.id, request).then((res) => {
           if (res.status !== 202) {
-            showMessage("Erro ao adicionar créditos", "error");
+            showMessage("Erro ao alterar limite", "error");
             return;
           }
           setUpdateList(!updateList);
+          showMessage("Limite alterado", "success");
         });
       }
     }

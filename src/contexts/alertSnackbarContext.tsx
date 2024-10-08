@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 import AlertSnackbar from "@/components/AlertSnackbar";
 
 interface AlertSnackbarContextType {
@@ -25,6 +25,7 @@ export const useAlertSnackbar = () => {
   return context;
 };
 
+// eslint-disable-next-line
 export const AlertSnackbarProvider = ({ children }: any) => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");

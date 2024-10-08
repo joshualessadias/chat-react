@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Dialog,
@@ -24,8 +24,8 @@ export default function NewClientButton({
   const [open, setOpen] = useState(false);
   const [newClient, setNewClient] = useState<ClientRequestDTO>({
     name: "",
-    cpf: 0,
-    cnpj: 0,
+    cpf: "",
+    cnpj: "",
     email: "",
     firmName: "",
     paymentPlan: PaymentPlanEnum.PRE_PAID,

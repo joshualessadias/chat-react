@@ -9,13 +9,14 @@ import MessageList from "@/components/MessageList";
 import { Container } from "@mui/material";
 import NewMessageButton from "@/components/NewMessageButton";
 import { sendMessage } from "@/services/Api/entities/message";
-import {useParams} from "next/navigation";
+import { useParams } from "next/navigation";
 
 export default function Page() {
   const { showMessage } = useAlertSnackbar();
   const [clientInfo, setClientInfo] = useState<ClientResponseDTO>();
   const { id } = useParams();
   const clientId = Number(id);
+  const [updateInfo, setUpdateInfo] = useState(false);
 
   useEffect(() => {
     getClientInfo(clientId).then((res) => {
@@ -25,21 +26,20 @@ export default function Page() {
       }
       setClientInfo(res.data);
     });
-  }, [clientId, showMessage]);
+  }, [clientId, showMessage, updateInfo]);
 
   const handleCreateMessage = (newMessage: MessageRequestDTO) => {
     sendMessage(clientId, newMessage).then((res) => {
-      if (res.status !== 201) {
+      if (res.status === 402) {
+        showMessage("Créditos insuficientes", "error");
+      }
+      else if (res.status !== 201) {
         showMessage("Erro ao enviar mensagem", "error");
         return;
+      } else {
+        setUpdateInfo(!updateInfo);
+        showMessage("Mensagem enviada", "success");
       }
-      setClientInfo((prevClientInfo) => {
-        if (!prevClientInfo) return prevClientInfo;
-        return {
-          ...prevClientInfo,
-          messages: [...prevClientInfo.messages, res.data],
-        };
-      });
     });
   };
 

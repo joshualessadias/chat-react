@@ -10,7 +10,7 @@ import {
   FormControlLabel,
   TextField,
 } from "@mui/material";
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
 import InputMask from "react-input-mask";
 import { MessageRequestDTO } from "@/dtos/chat";
 
