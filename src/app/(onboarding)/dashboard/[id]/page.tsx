@@ -19,28 +19,25 @@ export default function Page() {
   const [updateInfo, setUpdateInfo] = useState(false);
 
   useEffect(() => {
-    getClientInfo(clientId).then((res) => {
-      if (res.status !== 200) {
+    getClientInfo(clientId)
+      .then((res) => {
+        setClientInfo(res.data);
+      })
+      .catch(() => {
         showMessage("Erro ao carregar dados do cliente", "error");
-        return;
-      }
-      setClientInfo(res.data);
-    });
+      });
   }, [clientId, showMessage, updateInfo]);
 
   const handleCreateMessage = (newMessage: MessageRequestDTO) => {
-    sendMessage(clientId, newMessage).then((res) => {
-      if (res.status === 402) {
-        showMessage("Créditos insuficientes", "error");
-      }
-      else if (res.status !== 201) {
-        showMessage("Erro ao enviar mensagem", "error");
-        return;
-      } else {
+    sendMessage(clientId, newMessage)
+      .then(() => {
         setUpdateInfo(!updateInfo);
         showMessage("Mensagem enviada", "success");
-      }
-    });
+      })
+      .catch((err) => {
+        if (err.status === 402) showMessage("Créditos insuficientes", "error");
+        else showMessage("Erro ao enviar mensagem", "error");
+      });
   };
 
   return (

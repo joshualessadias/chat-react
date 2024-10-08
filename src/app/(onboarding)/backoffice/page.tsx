@@ -24,13 +24,13 @@ export default function Page() {
   const [updateList, setUpdateList] = useState(false);
 
   useEffect(() => {
-    getClientList().then((res) => {
-      if (res.status !== 200) {
+    getClientList()
+      .then((res) => {
+        setClientList(res.data);
+      })
+      .catch(() => {
         showMessage("Erro ao carregar lista de clientes", "error");
-        return;
-      }
-      setClientList(res.data);
-    });
+      });
   }, [showMessage, updateList]);
 
   const handleChangePlan = (selectedClient: ClientResponseDTO) => {
@@ -43,14 +43,14 @@ export default function Page() {
           : {
               paymentPlan: PaymentPlanEnum.PRE_PAID,
             };
-      changePaymentPlan(selectedClient.id, request).then((res) => {
-        if (res.status !== 202) {
+      changePaymentPlan(selectedClient.id, request)
+        .then((res) => {
+          setUpdateList(!updateList);
+          showMessage("Plano de pagamento alterado", "success");
+        })
+        .catch(() => {
           showMessage("Erro ao criar cliente", "error");
-          return;
-        }
-        setUpdateList(!updateList);
-        showMessage("Plano de pagamento alterado", "success");
-      });
+        });
     }
   };
 
@@ -61,23 +61,23 @@ export default function Page() {
     if (selectedClient) {
       const request: ClientCreditsRequestDTO = { credits: value };
       if (selectedClient.paymentPlan.type === PaymentPlanEnum.PRE_PAID) {
-        addCredits(selectedClient.id, request).then((res) => {
-          if (res.status !== 202) {
+        addCredits(selectedClient.id, request)
+          .then((res) => {
+            setUpdateList(!updateList);
+            showMessage("Créditos adicionados", "success");
+          })
+          .catch(() => {
             showMessage("Erro ao adicionar créditos", "error");
-            return;
-          }
-          setUpdateList(!updateList);
-          showMessage("Créditos adicionados", "success");
-        });
+          });
       } else {
-        alterLimit(selectedClient.id, request).then((res) => {
-          if (res.status !== 202) {
+        alterLimit(selectedClient.id, request)
+          .then((res) => {
+            setUpdateList(!updateList);
+            showMessage("Limite alterado", "success");
+          })
+          .catch(() => {
             showMessage("Erro ao alterar limite", "error");
-            return;
-          }
-          setUpdateList(!updateList);
-          showMessage("Limite alterado", "success");
-        });
+          });
       }
     }
   };

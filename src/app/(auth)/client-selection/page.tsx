@@ -14,27 +14,27 @@ export default function Page() {
   const [clientList, setClientList] = useState<ClientResponseDTO[]>();
 
   useEffect(() => {
-    getClientList().then((res) => {
-      if (res.status !== 200) {
+    getClientList()
+      .then((res) => {
+        setClientList(res.data);
+      })
+      .catch(() => {
         showMessage("Erro ao carregar lista de clientes", "error");
-        return;
-      }
-      setClientList(res.data);
-    });
+      });
   }, [showMessage]);
 
   const handleCreateClient = (newClient: ClientRequestDTO) => {
-    createClient(newClient).then((res) => {
-      if (res.status !== 201) {
+    createClient(newClient)
+      .then((res) => {
+        setClientList((prevClientList) => {
+          if (!prevClientList) return prevClientList;
+          return [...prevClientList, res.data];
+        });
+        showMessage("Cliente criado", "success");
+      })
+      .catch(() => {
         showMessage("Erro ao criar cliente", "error");
-        return;
-      }
-      setClientList((prevClientList) => {
-        if (!prevClientList) return prevClientList;
-        return [...prevClientList, res.data];
       });
-      showMessage("Cliente criado", "success");
-    });
   };
 
   return (
