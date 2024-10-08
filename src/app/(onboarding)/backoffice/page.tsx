@@ -44,7 +44,7 @@ export default function Page() {
               paymentPlan: PaymentPlanEnum.PRE_PAID,
             };
       changePaymentPlan(selectedClient.id, request)
-        .then((res) => {
+        .then(() => {
           setUpdateList(!updateList);
           showMessage("Plano de pagamento alterado", "success");
         })
@@ -62,7 +62,7 @@ export default function Page() {
       const request: ClientCreditsRequestDTO = { credits: value };
       if (selectedClient.paymentPlan.type === PaymentPlanEnum.PRE_PAID) {
         addCredits(selectedClient.id, request)
-          .then((res) => {
+          .then(() => {
             setUpdateList(!updateList);
             showMessage("Créditos adicionados", "success");
           })
@@ -71,7 +71,7 @@ export default function Page() {
           });
       } else {
         alterLimit(selectedClient.id, request)
-          .then((res) => {
+          .then(() => {
             setUpdateList(!updateList);
             showMessage("Limite alterado", "success");
           })
