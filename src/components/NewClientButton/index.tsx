@@ -96,36 +96,28 @@ export default function NewClientButton({
             value={newClient.phoneNumber}
             onChange={handleChange}
           >
-            {function () {
-              return (
-                <TextField
-                  margin="dense"
-                  name="phoneNumber"
-                  label="Número de telefone"
-                  type="text"
-                  fullWidth
-                  variant="outlined"
-                />
-              );
-            }}
+            <TextField
+              margin="dense"
+              name="phoneNumber"
+              label="Número de telefone"
+              type="text"
+              fullWidth
+              variant="outlined"
+            />
           </InputMask>
           <InputMask
             mask="***.***.***-**"
             value={newClient.cpf}
             onChange={handleChange}
           >
-            {function () {
-              return (
-                <TextField
-                  margin="dense"
-                  name="cpf"
-                  label="CPF"
-                  type="text"
-                  fullWidth
-                  variant="outlined"
-                />
-              );
-            }}
+            <TextField
+              margin="dense"
+              name="cpf"
+              label="CPF"
+              type="text"
+              fullWidth
+              variant="outlined"
+            />
           </InputMask>
           <TextField
             margin="dense"
@@ -142,18 +134,14 @@ export default function NewClientButton({
             value={newClient.cnpj}
             onChange={handleChange}
           >
-            {function () {
-              return (
-                <TextField
-                  margin="dense"
-                  name="cnpj"
-                  label="CNPJ"
-                  type="text"
-                  fullWidth
-                  variant="outlined"
-                />
-              );
-            }}
+            <TextField
+              margin="dense"
+              name="cnpj"
+              label="CNPJ"
+              type="text"
+              fullWidth
+              variant="outlined"
+            />
           </InputMask>
           <TextField
             margin="dense"

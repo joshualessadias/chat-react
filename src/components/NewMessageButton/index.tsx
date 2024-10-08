@@ -69,19 +69,15 @@ export default function NewMessageButton({
             value={newMessage.receiverPhoneNumber}
             onChange={handleChange}
           >
-            {function () {
-              return (
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  name="receiverPhoneNumber"
-                  label="Número do destinatário"
-                  type="text"
-                  fullWidth
-                  variant="outlined"
-                />
-              );
-            }}
+            <TextField
+              autoFocus
+              margin="dense"
+              name="receiverPhoneNumber"
+              label="Número do destinatário"
+              type="text"
+              fullWidth
+              variant="outlined"
+            />
           </InputMask>
           <TextField
             margin="dense"
